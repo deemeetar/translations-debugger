@@ -57,7 +57,7 @@ class Translator extends LaravelTranslator {
     {
         $link_url = str_replace('$file', $this->getFile($key), $url_format);
         $link_url = str_replace('$key', $this->getKey($key), $link_url);
-        $link = "<a href=\"$link_url\" \"title\"=\"$key\" \"target\"=\"translation\"><img src=\"/packages/deemeetar/translations-debugger/img/edit.png\" alt=\"edit\" \"title\"=\"edit: $key\"/></a> $result";
+        $link = "<a href=\"$link_url\" title=\"edit: $key\" target=\"translation\"><img src=\"/packages/deemeetar/translations-debugger/img/edit.png\" alt=\"edit\"/></a> $result";
         return $link;
     }
 }
