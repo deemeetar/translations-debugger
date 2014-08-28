@@ -1,0 +1,23 @@
+{
+    "name": "deemeetar/translations-debugger",
+    "description": "Debug translation keys inside the view",
+    "authors": [
+        {
+            "name": "Dimitar Spiroski",
+            "email": "dimitar.spiroski@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Deemeetar\\TranslationsDebugger\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
