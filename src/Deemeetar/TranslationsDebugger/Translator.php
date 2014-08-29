@@ -69,7 +69,7 @@ class Translator extends LaravelTranslator {
     {
         $group = $this->getFile($key);
         $key = $this->getKey($key);
-        $locales = array(Config::get('app.locale'));
+        $locales = $this->loadLocales();
         $translations = Translation::where("group", $group)->where("key", $key)->get();
         $translation = [];
         foreach($translations as $trans){
@@ -78,5 +78,12 @@ class Translator extends LaravelTranslator {
         $editUrl = str_replace('$file', $group, $url_format);
         $editUrl = str_replace('$key', $key, $editUrl);
         return \View::make("translations-debugger::xeditable", compact('key', 'group', 'result', 'locales', 'translation', 'editUrl'));
+    }
+
+    protected function loadLocales()
+    {
+        //Set the default locale as the first one.
+        $locales = array_merge(array(Config::get('app.locale')), Translation::groupBy('locale')->lists('locale'));
+        return array_unique($locales);
     }
 }
