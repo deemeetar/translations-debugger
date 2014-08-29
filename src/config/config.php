@@ -24,5 +24,7 @@
          * Example: 'http://example.com/?lang_debug=true
          */
         'input_flag' => 'lang_debug',
+
+        'xdebug_post_url' => '/translations/edit/$file/'
     );
 ?>

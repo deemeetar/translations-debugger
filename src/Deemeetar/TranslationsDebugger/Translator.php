@@ -30,6 +30,10 @@ class Translator extends LaravelTranslator {
             $url_format = Config::get("translations-debugger::link_url");
             return $this->generateLink($url_format, $key, $result);
         }
+        else if($method === "xeditable"){
+            $url_format = Config::get("translations-debugger::xdebug_post_url");
+            return $this->generateXeditable($key, $result, $url_format);
+        }
         else if($method === "show_key"){
             return $key;
         }
@@ -59,5 +63,20 @@ class Translator extends LaravelTranslator {
         $link_url = str_replace('$key', $this->getKey($key), $link_url);
         $link = "<a href=\"$link_url\" title=\"edit: $key\" target=\"translation\"><img src=\"/packages/deemeetar/translations-debugger/img/edit.png\" alt=\"edit\"/></a> $result";
         return $link;
+    }
+
+    public function generateXeditable($key, $result, $url_format)
+    {
+        $group = $this->getFile($key);
+        $key = $this->getKey($key);
+        $locales = array(Config::get('app.locale'));
+        $translations = Translation::where("group", $group)->where("key", $key)->get();
+        $translation = [];
+        foreach($translations as $trans){
+            $translation[$trans['locale']] = $trans;
+        }
+        $editUrl = str_replace('$file', $group, $url_format);
+        $editUrl = str_replace('$key', $key, $editUrl);
+        return \View::make("translations-debugger::xeditable", compact('key', 'group', 'result', 'locales', 'translation', 'editUrl'));
     }
 }

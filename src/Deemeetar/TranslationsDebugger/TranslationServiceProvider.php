@@ -32,6 +32,32 @@ class TranslationServiceProvider extends BaseTranslationServiceProvider {
 
             return $trans;
         });
+
+    }
+
+    public function boot()
+    {
+        $this->app->after(function($request, $response){
+            $this->modifyResponse($response);
+        });
+    }
+
+    public function modifyResponse($response){
+        $content = $response->getContent();
+        $pos = strripos($content, '</body>');
+        $renderedContent = $this->render();
+        if (false !== $pos) {
+            $content = substr($content, 0, $pos) . $renderedContent . substr($content, $pos);
+        }else{
+            $content = $content . $renderedContent;
+        }
+
+        $response->setContent($content);
+    }
+
+    public function render($value='')
+    {
+        return \View::make("translations-debugger::javascript");
     }
 
 
