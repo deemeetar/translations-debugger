@@ -1,7 +1,7 @@
 <?php // foreach($translations as $key => $translation): ?>
-<a href="#" class="translation-edit" data-target="#<?= $group."_".$key ?>"><img src="/packages/deemeetar/translations-debugger/img/edit.png" alt="edit"/></a></a>
+<a href="#" class="translation-edit" data-target="#<?= str_replace(".", "_", $group.".".$key) ?>"><img src="/packages/deemeetar/translations-debugger/img/edit.png" alt="edit"/></a></a>
 <?= $result ?>
-<div id="<?= $group."_".$key ?>" class="translation-dialog" title="Edit translation for: '<?= $group.".".$key ?>'">
+<div id="<?= str_replace(".", "_", $group.".".$key) ?>" class="translation-dialog" title="Edit translation for: '<?= $group.".".$key ?>'">
     <ul>
         <?php foreach($locales as $locale): ?>
             <li>
